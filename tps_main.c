@@ -24,7 +24,7 @@ int main (void) {
         printf("Opened the I2C Adapter\n");
 
         if (ioctl(file, I2C_SLAVE, I2C_SLAVE_ADDR) < 0) {
-                printf("Couldn't set I2C slave address\n");
+                printf("Couldn't set I2C slave address\n")
                 return 0;
         }
 
