@@ -8,7 +8,7 @@ PKG_NAME:=tps25750
 PKG_VERSION:=1.1.0.0
 PKG_RELEASE:=1
 
-SOURCE_DIR:=./
+#SOURCE_DIR:=./
 
 include $(INCLUDE_DIR)/package.mk
 
