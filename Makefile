@@ -16,7 +16,6 @@ define Package/$(PKG_NAME)
 	CATEGORY:=Test Programs
 	SUBMENU:=Trieste
 	TITLE:=USB-PD
-	DEPENDS:=
 endef
 
 define Build/Prepare
@@ -29,7 +28,7 @@ define Package/$(PKG_NAME)/description
 endef
 
 define Build/Compile
-	$(TARGET_CC) -Wall -Werror -o $(PKG_BUILD_DIR)/tps $(PKG_BUILD_DIR)/src/tps_main.c -lfdt        
+	$(TARGET_CC) -Wall -Werror -o $(PKG_BUILD_DIR)/tps $(PKG_BUILD_DIR)/src/tps_main.c -lfdt
 endef
 
 define Package/$(PKG_NAME)/install
