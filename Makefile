@@ -13,29 +13,29 @@ SOURCE_DIR:=./
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
-        CATEGORY:=Test Programs
-        SUBMENU:=Trieste
-        TITLE:=USB-PD
-        DEPENDS:=
+	CATEGORY:=Test Programs
+	SUBMENU:=Trieste
+	TITLE:=USB-PD
+	DEPENDS:=
 endef
 
 define Build/Prepare
-        mkdir -p $(PKG_BUILD_DIR)
-        $(CP) $(SOURCE_DIR)/* $(PKG_BUILD_DIR)/
+	mkdir -p $(PKG_BUILD_DIR)
+	$(CP) $(SOURCE_DIR)/* $(PKG_BUILD_DIR)/
 endef
 
 define Package/$(PKG_NAME)/description
-        PTC application.
+	PTC application.
 endef
 
 define Build/Compile
-        $(TARGET_CC) -Wall -Werror -o $(PKG_BUILD_DIR)/tps $(PKG_BUILD_DIR)/src/tps_main.c -lfdt        
+	$(TARGET_CC) -Wall -Werror -o $(PKG_BUILD_DIR)/tps $(PKG_BUILD_DIR)/src/tps_main.c -lfdt        
 endef
 
 define Package/$(PKG_NAME)/install
-        echo "In Package/$(PKG_NAME)/install: Bello"
-        $(INSTALL_DIR) $(1)/usr/bin
-        $(INSTALL_BIN) -m 0755 $(PKG_BUILD_DIR)/tps $(1)/usr/bin/
+	echo "In Package/$(PKG_NAME)/install: Bello"
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) -m 0755 $(PKG_BUILD_DIR)/tps $(1)/usr/bin/
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
