@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
-	CATEGORY:=Test Programs
+	CATEGORY:=eero
 	SUBMENU:=Trieste
 	TITLE:=USB-PD
 endef
