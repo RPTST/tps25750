@@ -14,9 +14,10 @@
  * TBD: Needs to provide reg names options. 
  */ 
 void tps_print_help () {
-        printf("\n tps [-r|read] [regName]");
-        printf("\n tps [-w|write] [regName]");
-	printf("\n tps [-u|update-firmware] [FileName]");
+	printf("\nUsage:");
+	printf("\n tps [-r|read] [reg]");
+        printf("\n tps [-w|write] [reg]");
+	printf("\n tps [-u|update-firmware] [file]");
 	printf("\n tps [-h|help]\n");
 }
 
@@ -375,7 +376,7 @@ char * tps_read_version_reg(int file) {
                 printf("Could not read version\n");
         } else {
                 for (i = 0; i < TPS_VERSION_REG_SIZE; i++) {
-                        printf("%x." , buf[i]);
+                        printf("%02x." , buf[TPS_VERSION_REG_SIZE-i-1]);
                 }
                 printf("\n");
         }
@@ -656,6 +657,15 @@ void tps_write_reg(__u8 addr, __u8 length,  char *buf) {
 	
 }
 
+void tps_list_regs() {
+	printf("\nPlease mention one reg from the list below\n");
+	printf("\n \t cmd \n \t cap \n \t mode \n \t type \n \t status"
+		"\n \t version \n \t devinfo \n \t buildinfo \n \t power"
+		"\n \t int \n \t mask \n \t clear \n \t powerp \n \t portcon"
+		"\n \t rxsrc \n \t txsrc \n \t rxsink \n \t txsink \n \t pdo"
+		"\n \t rdo \n \t pdstat \n \t tsate \n \t gpio\n");
+}	
+
 void tps_update_firmware() {
         tps_write_reg(TPS_CMD1_REG, 4, "abcd");
 }
@@ -673,6 +683,7 @@ void tps_read_reg(char* reg) {
 
 	if (reg == NULL) {
 		tps_print_help();
+		tps_list_regs();
 		return;
 	}
 
@@ -740,7 +751,7 @@ void tps_read_reg(char* reg) {
 		buf = tps_read_gpio_status_reg(file);
 	} else {
 		printf("%s reg not supported",reg);
-		tps_print_help();
+		tps_list_regs();
 		return;
 	}
 
@@ -767,7 +778,7 @@ int main (int argc, char *argv[]) {
 				break;
 			// case 'w': tps_write_reg();
 			//		break;
-			case 'u': tps_update_firmware();
+			case 'u': tps_update_firmware(argv[2]);
 				break;
 			case 'h': tps_print_help();
 				break;
