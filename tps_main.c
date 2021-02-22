@@ -82,6 +82,246 @@ char* tps_read_mode_reg(int file) {
 }
 
 
+char* tps_read_int_event_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_INT_EVENT1_REG, TPS_INT_EVENT1_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read INT_EVENT1 reg\n");
+        } else {
+                for (i = 0; i < TPS_INT_EVENT1_REG_SIZE; i++) {
+                        printf("0x%02x " , buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_int_mask_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_INT_MASK1_REG, TPS_INT_MASK1_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read INT_MASK1 reg\n");
+        } else {
+                for (i = 0; i < TPS_INT_MASK1_REG_SIZE; i++) {
+                        printf("0x%02x " , buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_int_clear_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_INT_CLEAR1_REG, TPS_INT_CLEAR1_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read INT_CLEAR1 reg\n");
+        } else {
+                for (i = 0; i < TPS_INT_CLEAR1_REG_SIZE; i++) {
+                        printf("0x%02x " , buf[i]);
+                }
+                printf("\n");
+        }
+        
+        return buf;
+}
+
+char* tps_read_power_path_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_POWER_PATH_STATUS_REG, 
+			TPS_POWER_PATH_STATUS_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read POWER_PATH_STATUS reg\n");
+        } else {
+                for (i = 0; i < TPS_POWER_PATH_STATUS_REG_SIZE; i++) {
+                        printf("0x%02x " , buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_port_control_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_PORT_CONTROL_REG, TPS_PORT_CONTROL_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read PORT_CONTROL reg\n");
+        } else {
+                for (i = 0; i < TPS_PORT_CONTROL_REG_SIZE; i++) {
+                        printf("0x%02x " , buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_rx_source_caps_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_RX_SOURCE_CAPS_REG, TPS_RX_SOURCE_CAPS_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read RX_SOURCE_CAPS reg\n");
+        } else {
+                for (i = 0; i < TPS_RX_SOURCE_CAPS_REG_SIZE; i++) {
+                        printf("B%d:0x%02x  " , i, buf[i]); 
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_tx_source_caps_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_TX_SOURCE_CAPS_REG, TPS_TX_SOURCE_CAPS_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read TX_SOURCE_CAPS reg\n");
+        } else {
+                for (i = 0; i < TPS_TX_SOURCE_CAPS_REG_SIZE; i++) {
+                        printf("B%d:0x%02x  " , i, buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+
+char* tps_read_rx_sink_caps_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_RX_SINK_CAPS_REG, TPS_RX_SINK_CAPS_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read RX_SINK_CAPS reg\n");
+        } else {
+                for (i = 0; i < TPS_RX_SINK_CAPS_REG_SIZE; i++) {
+                        printf("B%d:0x%02x  " , i, buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_tx_sink_caps_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_TX_SINK_CAPS_REG, TPS_TX_SINK_CAPS_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read TX_SINK_CAPS reg\n");
+        } else {
+                for (i = 0; i < TPS_TX_SINK_CAPS_REG_SIZE; i++) {
+                        printf("B%d:0x%02x  " , i, buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_active_contract_pdo_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_ACTIVE_CONTRACT_PDO_REG, TPS_ACTIVE_CONTRACT_PDO_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read ACTIVE_CONTRACT_PDO reg\n");
+        } else {
+                for (i = 0; i < TPS_ACTIVE_CONTRACT_PDO_REG_SIZE; i++) {
+                        printf("B%d:0x%02x  " , i, buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_active_contract_rdo_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_ACTIVE_CONTRACT_RDO_REG, TPS_ACTIVE_CONTRACT_RDO_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read ACTIVE_CONTRACT_RDO reg\n");
+        } else {
+                for (i = 0; i < TPS_ACTIVE_CONTRACT_RDO_REG_SIZE; i++) {
+                        printf("B%d:0x%02x  " , i, buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_pd_status_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_PD_STATUS_REG, TPS_PD_STATUS_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read PD_STATUS reg\n");
+        } else {
+                for (i = 0; i < TPS_PD_STATUS_REG_SIZE; i++) {
+                        printf("B%d:0x%02x  " , i, buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_typec_state_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_TYPEC_STATE_REG, TPS_TYPEC_STATE_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read TYPEC_STATE reg\n");
+        } else {
+                for (i = 0; i < TPS_TYPEC_STATE_REG_SIZE; i++) {
+                        printf("B%d:0x%02x  " , i, buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_gpio_status_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_GPIO_STATUS_REG, TPS_GPIO_STATUS_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read GPIO_STATUS reg\n");
+        } else {
+                for (i = 0; i < TPS_GPIO_STATUS_REG_SIZE; i++) {
+                        printf("B%d:0x%02x  " , i, buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
 char* tps_read_power_status_reg(int file) {
         char *buf;
         int i;
@@ -91,12 +331,63 @@ char* tps_read_power_status_reg(int file) {
 		printf("Could not read power status\n");
  	} else {
         	for (i = 0; i < TPS_POWER_STATUS_REG_SIZE; i++) {
-                	printf("0x%x " , buf[i]);
+                	printf("0x%02x " , buf[i]);
         	}
         	printf("\n");
 	} 
 
 	return buf;
+}
+
+char * tps_read_version_reg(int file) {
+	char *buf;
+	int i;
+
+	buf = tps_read(file, TPS_VERSION_REG, TPS_VERSION_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read version\n");
+        } else {
+                for (i = 0; i < TPS_VERSION_REG_SIZE; i++) {
+                        printf("%x." , buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_devinfo_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_DEVICE_INFO_REG, TPS_DEVICE_INFO_REG_SIZE);
+        if (buf == NULL) {
+                printf("Could not read device information\n");
+        } else {
+                for (i = 0; i < TPS_DEVICE_INFO_REG_SIZE; i++) {
+                        printf("%c" , buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
+}
+
+char* tps_read_buildinfo_reg(int file) {
+        char *buf;
+        int i;
+
+        buf = tps_read(file, TPS_BUILD_DESCRIPTION, TPS_BUILD_DESCRIPTION_SIZE);
+        if (buf == NULL) {
+                printf("Could not read build information\n");
+        } else {
+                for (i = 0; i < TPS_BUILD_DESCRIPTION_SIZE; i++) {
+                        printf("%c" , buf[i]);
+                }
+                printf("\n");
+        }
+
+        return buf;
 }
 
 char* tps_read_status_reg(int file) {
@@ -267,7 +558,7 @@ char* tps_read_cap_reg(int file) {
 			break;
 	}
 
-	UsbPdCap = buf[0] & TPS_CAP_USBPD_CAP_M; 
+	UsbPdCap = (buf[0] & TPS_CAP_USBPD_CAP_M) >> 2 ; 
 	switch (UsbPdCap) {
 		case 0: printf("UsbPdCapability: Supported\n");
 			break;
@@ -277,7 +568,7 @@ char* tps_read_cap_reg(int file) {
 			break;
 	}
 
-	I2CmLevel = buf[0] & TPS_CAP_I2CMLEVEL_VOLT_M;
+	I2CmLevel = (buf[0] & TPS_CAP_I2CMLEVEL_VOLT_M) >> 7;
 	switch(I2CmLevel) {
 		case 0: printf("I2CmLevel: 1.8V or 3.3V\n");
 			break;
@@ -325,6 +616,11 @@ void tps_write_reg() {
 	printf("\n Inside write reg\n");
 }
 
+/* Main read API
+ * Input:  Reg to read
+ * Output: Calls register specific read
+ * 	   functions to display the contents.
+ */ 
 void tps_read_reg(char* reg) {
 
 	int file;
@@ -335,6 +631,10 @@ void tps_read_reg(char* reg) {
 		return;
 	}
 
+	/* Open the TPS I2C adapter for read/write
+	 * every read requires a write first to
+	 * select the register.
+	 */
 	file = open(I2C_ADAPTER, O_RDWR);
 	if(file < 0) {
                 printf("Couldn't open the I2C Adapter\n");
@@ -346,14 +646,53 @@ void tps_read_reg(char* reg) {
 		return; 
 	}
 
+	/* Add to the list of reg here for reading */
 	if(!strncmp(reg, "cap", 3)) {
 		buf = tps_read_cap_reg(file);
+	} else if(!strncmp(reg, "cmd", 4)) {
+		buf = tps_read_cmd_reg(file);
 	} else if(!strncmp(reg, "mode", 4)) {
 		buf = tps_read_mode_reg(file); 
 	} else if(!strncmp(reg, "type", 4)) {
 		buf = tps_read_type_reg(file);
 	} else if(!strncmp(reg, "status", 6)) {
 		buf = tps_read_status_reg(file);
+	} else if(!strncmp(reg, "version", 7)) {
+		buf = tps_read_version_reg(file);
+	} else if(!strncmp(reg, "devinfo", 7)) {
+		buf = tps_read_devinfo_reg(file);
+	} else if(!strncmp(reg, "buildinfo", 9)) {
+		buf = tps_read_buildinfo_reg(file);
+	} else if(!strncmp(reg, "power", 5)) {
+		buf = tps_read_power_status_reg(file);
+	} else if(!strncmp(reg, "int", 3)) {
+		buf = tps_read_int_event_reg(file);
+	} else if(!strncmp(reg, "mask", 4)) {
+		buf = tps_read_int_mask_reg(file);
+	} else if(!strncmp(reg, "clear", 5)) {
+		buf = tps_read_int_clear_reg(file);
+	} else if(!strncmp(reg, "powerp", 6)) {
+		buf = tps_read_power_path_reg(file);
+	} else if(!strncmp(reg, "portcon", 7)) {
+		buf = tps_read_port_control_reg(file);
+	} else if(!strncmp(reg, "rxsrc", 5)) {
+		buf = tps_read_rx_source_caps_reg(file);
+	} else if(!strncmp(reg, "txsrc", 5)) {
+		buf = tps_read_tx_source_caps_reg(file);
+	} else if(!strncmp(reg, "rxsink", 6)) {
+		buf = tps_read_rx_sink_caps_reg(file);
+	} else if(!strncmp(reg, "txsink", 6)) {
+		buf = tps_read_tx_sink_caps_reg(file);
+	} else if(!strncmp(reg, "pdo", 3)) {
+		buf = tps_read_active_contract_pdo_reg(file);
+	} else if(!strncmp(reg, "rdo", 3)) {
+		buf = tps_read_active_contract_rdo_reg(file);
+	} else if(!strncmp(reg, "pdstat", 6)) {
+		buf = tps_read_pd_status_reg(file);
+	} else if(!strncmp(reg, "tstate", 6)) {
+		buf = tps_read_typec_state_reg(file);
+	} else if(!strncmp(reg, "gpio", 4)) {
+		buf = tps_read_gpio_status_reg(file);
 	} else {
 		printf("%s reg not supported",reg);
 		tps_print_help();
@@ -361,7 +700,6 @@ void tps_read_reg(char* reg) {
 	}
 
 	if (buf) {
-		printf("\nFreeing buf");
 		free(buf);
 	}
 	close(file);
