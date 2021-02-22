@@ -10,6 +10,9 @@
 #include "tps_defs.h"
 #include <string.h>
 
+/* Help Menu 
+ * TBD: Needs to provide reg names options. 
+ */ 
 void tps_print_help () {
         printf("\n tps [-r|read] [regName]");
         printf("\n tps [-w|write] [regName]");
@@ -17,7 +20,11 @@ void tps_print_help () {
 	printf("\n tps [-h|help]\n");
 }
 
-
+/* The low level write used to setup the 
+ * reg add to access the I2C registers.
+ * Input: I2C dev file and reg addr.
+ * Returns: Sucess/Failed.
+ */
 int tps_write(int file, uint8_t addr) {
         int ret;
 
@@ -25,6 +32,13 @@ int tps_write(int file, uint8_t addr) {
         return ret;
 }
 
+/* The low -level read API used by reg 
+ * specific API's to read. 
+ *
+ * Input: I2C dev node, reg addr, read size
+ * Returns: Bytes read from slave addr
+ * Uses: tps_write() to change the reg addr
+ */
 
 char* tps_read(int file, uint8_t addr,  uint8_t count) {
 
@@ -37,15 +51,28 @@ char* tps_read(int file, uint8_t addr,  uint8_t count) {
 		printf("Could not read addr 0x%x", addr);
 		return NULL;
 	}
-	buf = (char *) malloc (sizeof(char) * count);
+	++count;
+
+	buf = (char *) malloc (sizeof(char) * (count));
+
+	//i2c_smbus_read_block_data(file, (__u8)addr, buf);
 
 	while (count != 0 ) {
 		*(buf + i) = i2c_smbus_read_byte(file);
 		count--;
 		i++;
 	}
-	return buf;
+
+	/* All reg except MODE and APP start with size. */
+	if ((addr == TPS_MODE_REG) || (addr == TPS_TYPE_REG)) {
+		return buf;
+	} else {
+		return (buf + 1);
+	}
 }
+
+/* Begin register specific reads 
+ */
 
 char* tps_read_type_reg(int file) {
         char *buf;
@@ -430,7 +457,7 @@ char* tps_read_status_reg(int file) {
 			break;
 		case 4: printf("No Connection, Ra detected (but no Rd).\n");
 			break;
-		case 5: printf("Reserved, shoud not have this state\n");
+		case 5: printf("Reserved\n");
 			break;
 		case 6: printf("Connection present no Ra detected\n");
 			break;
@@ -597,24 +624,42 @@ char * tps_read_cmd_reg(int file) {
 
         return buf;
 }
+/* End: Register specific reads */
 
+
+/* Begin Register specific writes */
+#if 0
 int  tps_write_cmd_reg(int file, char* buf) {
 	int i; 
 
-	for (i = 0; i < TPS_CMD1_REG_SIZE; i++) {
-		tps_write(file, buf[i]); 
+	i2c_smbus_write_block_data(int file, __u8 command,
+                                               __u8 length, __u8 *values);
+	return 0;
+}
+#endif
+
+void tps_write_reg(__u8 addr, __u8 length,  char *buf) {
+        int file;
+     
+     	file = open(I2C_ADAPTER, O_RDWR);
+        if(file < 0) {
+                printf("Couldn't open the I2C Adapter\n");
+                return;
+        }
+
+        if (ioctl(file, I2C_SLAVE, I2C_SLAVE_ADDR) < 0) {
+                printf("Couldn't set I2C slave address\n");
+                return;
 	}
 
-	return 0;
+	i2c_smbus_write_block_data(file, addr, length, (__u8*)buf);
+	
 }
 
 void tps_update_firmware() {
-	printf("\n Inside TPS update firmware\n");
+        tps_write_reg(TPS_CMD1_REG, 4, "abcd");
 }
 
-void tps_write_reg() {
-	printf("\n Inside write reg\n");
-}
 
 /* Main read API
  * Input:  Reg to read
@@ -720,8 +765,8 @@ int main (int argc, char *argv[]) {
 		switch (argv[1][1]) {
 			case 'r': tps_read_reg(argv[2]);
 				break;
-			case 'w': tps_write_reg();
-				break;
+			// case 'w': tps_write_reg();
+			//		break;
 			case 'u': tps_update_firmware();
 				break;
 			case 'h': tps_print_help();
